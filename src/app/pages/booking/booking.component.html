@@ -1,0 +1,69 @@
+<section id="booking-form" class="my-4">
+  <div class="container mt-5">
+    <div class="row">
+
+      <div class="col-4">
+        <div class="row">
+          <div class="col-12 text-end">
+            <img src="https://cdn-icons-png.flaticon.com/512/2907/2907720.png" alt="Driver Icon" class="driver">
+          </div>
+        </div>
+        <div class="row">
+          @for(seatNum of seatArray; track $index){
+
+          @if(checkIfSeatBooked(seatNum) != -1){
+          <div class="col-3">
+            <div class="seat reserved">{{seatNum}}</div>
+          </div>
+          } @else{
+
+          @if(checkIfSeatSelected(seatNum)!= -1){
+          <div class="col-3">
+            <div class="seat selected" (click)="selectSeat(seatNum)">{{seatNum}}</div>
+          </div>
+          } @else {
+          <div class="col-3">
+            <div class="seat available" (click)="selectSeat(seatNum)">{{seatNum}}</div>
+          </div>
+          }
+          }
+
+          }
+        </div>
+      </div>
+      <div class="col-8">
+        @for (item of userSelectedSeatArray; track $index) {
+        <div class="row">
+          <div class="col-3">
+            <label class="form-label">Passenger</label>
+            <input type="text" class="form-control" name="passengerName" [(ngModel)]="item.passengerName">
+          </div>
+          <div class="col-2">
+            <label class="form-label">Age</label>
+            <input type="text" class="form-control" name="age" [(ngModel)]="item.age">
+          </div>
+          <div class="col-2">
+            <label class="form-label">Gender</label>
+            <select class="form-select" name="gender" [(ngModel)]="item.gender">
+              <option value="">select option</option>
+              <option value="male">Male</option>
+              <option value="female">Fe-Male</option>
+            </select>
+          </div>
+          <div class="col-2">
+            <label class="form-label">Passenger</label>
+            <input disabled type="text" class="form-control" name="seatNo" [(ngModel)]="item.seatNo">
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    <div class="row">
+      @if (userSelectedSeatArray && userSelectedSeatArray.length > 0) {
+      <div class="col-12 text-center">
+        <button class="btn btn-danger" (click)="bookNow()">Book Now</button>
+      </div>
+      }
+    </div>
+  </div>
+</section>
